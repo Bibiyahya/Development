@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Subscription'
+    azureResourceManagerConnection: 'g7cr-bibi-msdn(1)(4458b77e-be84-4b02-a271-b581d05c0b06)'
+    subscriptionId: '4458b77e-be84-4b02-a271-b581d05c0b06'
+    location: 'Central US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Template.json'
+    csmParametersFile: 'Template1.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'Development'
+    addSpnToEnvironment: true
